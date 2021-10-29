@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurant-staff-pay
+  namespace: restaurant
+  labels:
+    app: restaurant-staff-pay
+    app.kubernetes.io/name: restaurant-staff
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/component: pay
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurant-staff-pay
+  template:
+    metadata:
+      name: restaurant-staff-pay
+      labels:
+        app: restaurant-staff-pay
+        app.kubernetes.io/name: restaurant-staff
+        app.kubernetes.io/version: 1.0.0
+        app.kubernetes.io/component: pay
+    spec:
+      containers:
+        - name: restaurant-staff-pay
+          image: lhauspie/restaurant-staff-pay:1.0.0
+          ports:
+            - name: http
+              containerPort: 8080
+          livenessProbe:
+            initialDelaySeconds: 5
+            httpGet:
+              port: http
+              path: /q/health
+          readinessProbe:
+            initialDelaySeconds: 5
+            httpGet:
+              port: http
+              path: /q/health
+          resources:
+            limits:
+              cpu: 200m
+              memory: 64Mi
+            requests:
+              cpu: 100m
+              memory: 32Mi
