@@ -1,9 +1,3 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: podinfo
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -34,6 +28,7 @@ metadata:
   labels:
     run: podinfo
 spec:
+  type: LoadBalancer
   ports:
     - port: 9898
       protocol: TCP

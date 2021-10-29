@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/version: 1.0.0
     app.kubernetes.io/component: order
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - name: http
       port: 8082
