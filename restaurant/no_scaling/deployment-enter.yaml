@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurant-staff-enter
+  namespace: restaurant
+  labels:
+    app: restaurant-staff-enter
+    app.kubernetes.io/name: restaurant-staff
+    app.kubernetes.io/version: 1.2.0
+    app.kubernetes.io/component: enter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurant-staff-enter
+  template:
+    metadata:
+      name: restaurant-staff-enter
+      labels:
+        app: restaurant-staff-enter
+        app.kubernetes.io/name: restaurant-staff
+        app.kubernetes.io/version: 1.2.0
+        app.kubernetes.io/component: enter
+    spec:
+      containers:
+        - name: restaurant-staff-enter
+          image: lhauspie/restaurant-staff-enter:1.2.0
+          imagePullPolicy: Always
+          env:
+            - name: TIME_DIVISOR
+              value: "15"
+          ports:
+            - name: http
+              containerPort: 8080
+          livenessProbe:
+            initialDelaySeconds: 5
+            httpGet:
+              port: http
+              path: /q/health
+          readinessProbe:
+            initialDelaySeconds: 5
+            httpGet:
+              port: http
+              path: /q/health
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 200m
+              memory: 128Mi

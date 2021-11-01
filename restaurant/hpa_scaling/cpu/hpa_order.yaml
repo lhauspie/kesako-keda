@@ -1,0 +1,24 @@
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: restaurant-staff-order-hpa
+  namespace: restaurant
+  labels:
+    app: restaurant-staff-order
+    app.kubernetes.io/name: restaurant-staff
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/component: order
+spec:
+  minReplicas: 1
+  maxReplicas: 10
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: restaurant-staff-order
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 75

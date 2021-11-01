@@ -18,7 +18,7 @@
           "subdir": "contrib/mixin"
         }
       },
-      "version": "11f77296605f4b1d29fbaba9a390e67f4e743226",
+      "version": "6656181d312a9e780551f083c67a6fafb4c44fc6",
       "sum": "cdKL5kPYfpWSpTCu4qctmh+gWQqL+4YWom6rw9qLYJU="
     },
     {
@@ -130,7 +130,7 @@
           "subdir": "documentation/prometheus-mixin"
         }
       },
-      "version": "bc72a718c4e537f8cff37e638320708de1788041",
+      "version": "be2599c853840eb3a86500e2682b8c1f392d4e3d",
       "sum": "n5Zdr/7YeRb8Y9FsXnul5K+hprHOzuSXsYdkapEhPts=",
       "name": "prometheus"
     },
@@ -141,7 +141,7 @@
           "subdir": "mixin"
         }
       },
-      "version": "59e474e6a5735fb7d964ce89c3056e41a784b0dc",
+      "version": "0e714dc98eadfe4e8c2cda1fa0e95669f9d5c4d0",
       "sum": "Og+wEHfgzXBvBLAeeQvGNoiCw3FY4LQHlJdpsG/owj8=",
       "name": "thanos-mixin"
     },

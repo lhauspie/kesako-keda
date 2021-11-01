@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: restaurant-staff
+  namespace: restaurant
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /enter
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: restaurant-staff-enter
+                port:
+                  number: 8080
+          - path: /order
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: restaurant-staff-order
+                port:
+                  number: 8080
+          - path: /pay
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: restaurant-staff-pay
+                port:
+                  number: 8080

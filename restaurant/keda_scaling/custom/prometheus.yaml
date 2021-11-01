@@ -1,0 +1,62 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: prometheus-enter
+  namespace: restaurant
+spec:
+  scaleTargetRef:
+    name: restaurant-staff-enter
+  minReplicaCount:  1      # Minimum 1 pod
+  maxReplicaCount:  30     # Maximum 30 pods
+  pollingInterval:  3      # Vérifier toutes les 3 secondes
+  cooldownPeriod:   10     # Scale down après 10 secondes sous le seuil
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-k8s.monitoring.svc.cluster.local:9090
+        metricName: http_server_requests_seconds_sum
+        query: sum(rate(http_server_requests_seconds_sum{container="restaurant-staff-enter", uri="/enter"}[2m]))
+        threshold: '5'     # On scale Up si on est au dessus de 5 requetes/seconde
+---
+
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: prometheus-order
+  namespace: restaurant
+spec:
+  scaleTargetRef:
+    name: restaurant-staff-order
+  minReplicaCount:  1
+  maxReplicaCount:  30
+  pollingInterval:  3
+  cooldownPeriod:   10
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-k8s.monitoring.svc.cluster.local:9090
+        metricName: http_server_requests_seconds_sum
+        query: sum(rate(http_server_requests_seconds_sum{container="restaurant-staff-order", uri="/order"}[2m]))
+        threshold: '5'
+
+---
+
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: prometheus-pay
+  namespace: restaurant
+spec:
+  scaleTargetRef:
+    name: restaurant-staff-pay
+  minReplicaCount:  1
+  maxReplicaCount:  30
+  pollingInterval:  3
+  cooldownPeriod:   10
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-k8s.monitoring.svc.cluster.local:9090
+        metricName: http_server_requests_seconds_sum
+        query: sum(rate(http_server_requests_seconds_sum{container="restaurant-staff-pay", uri="/pay"}[2m]))
+        threshold: '5'
