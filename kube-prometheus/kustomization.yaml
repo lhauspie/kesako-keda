@@ -62,7 +62,7 @@ resources:
 - ./manifests/prometheus-operator-prometheusRule.yaml
 - ./manifests/prometheus-operator-serviceMonitor.yaml
 - ./manifests/prometheus-podDisruptionBudget.yaml
-- ./manifests/prometheus-prometheus.yaml
+- ./manifests/prometheus-prometheus-pay.yaml
 - ./manifests/prometheus-prometheusRule.yaml
 - ./manifests/prometheus-roleBindingConfig.yaml
 - ./manifests/prometheus-roleBindingSpecificNamespaces.yaml

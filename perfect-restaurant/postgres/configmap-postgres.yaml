@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pr-postgres-config
+  namespace: perfect-restaurant
+  labels:
+    app: pr-postgres
+data:
+  POSTGRES_DB: restaurant
+  POSTGRES_USER: lhauspie
+  POSTGRES_PASSWORD: lhauspie

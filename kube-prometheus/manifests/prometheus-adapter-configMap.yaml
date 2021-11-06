@@ -2,43 +2,16 @@ apiVersion: v1
 data:
   config.yaml: |-
     "rules":
-                          # seriesQuery is a Prometheus query on its own, we'll set up parameters below
-                          # container_network_receive_bytes_total is a metric provided to us as part of kube-prometheus
-      - "seriesQuery": "container_network_receive_bytes_total"
-                            # resources overrides allows us to define parameters for our query
-        "resources":
-          "overrides":
-                                # define a `namespace` parameter, where the value is the namespace of the resource (pods for our HorizonalPodAutoscaler)
-            "namespace":
-              "resource": "namespace"
-                                # define a `pod` parameter, where the value is the name of the resource (pods for our HorizonalPodAutoscaler)
-            "pod":
-              "resource": "pod"
-                            # We want to scale pods due to a surge in traffic. A metric that is a total isn't great for this, but
-                            # we can see the rate of change using Prometheus' `rate`, which is a good metric to scale by
-                            # metricsQuery is Go templating with a few variables defined such as `.Series` being seriesQuery
-                            # and .LabelMatchers being parameters for our query
-        "metricsQuery": 'sum(rate(<<.Series>>{id=~".*docker.*",<<.LabelMatchers>>}[1m])) by (<<.GroupBy>>)'
-                            # name allows us to modify the metric name given the seriesQuery
-                            # by default the name would be container_network_receive_bytes_total, which is misleading after our metricsQuery
-                            # produces a metric where we get bytes received per second
-        "name":
-                              # matches allows to use capture groups to select the part of seriesQuery we want
-                              # in this case we're capturing everything before `_total` resulting in `container_network_receive_bytes`
-          "matches": "^(.*)_total$"
-                              # as allows us to use our capture groups from `matches` and adjust as desired
-                              # in this case we're appending `_per_second` to `container_network_receive_bytes` resulting in `container_network_receive_bytes_per_second`
-          "as": "${1}_per_second"
-      - "seriesQuery": "http_request_duration_seconds_count"
+      - "seriesQuery": "http_server_requests_seconds_count"
         "resources":
           "overrides":
             "namespace":
               "resource": "namespace"
             "pod":
               "resource": "pod"
-        "metricsQuery": 'sum(rate(<<.Series>>{id=~".*docker.*",<<.LabelMatchers>>}[1m])) by (<<.GroupBy>>)'
+        "metricsQuery": 'sum(rate(<<.Series>>{<<.LabelMatchers>>}[2m])) by (<<.GroupBy>>)'
         "name":
-          "matches": "^(.*)_duration_seconds_count$"
+          "matches": "^(.*)_seconds_count$"
           "as": "${1}_per_second"
     "resourceRules":
       "cpu":

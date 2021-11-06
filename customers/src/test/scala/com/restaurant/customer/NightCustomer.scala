@@ -7,9 +7,15 @@ import io.gatling.http.{HeaderNames, HeaderValues}
 import scala.concurrent.duration.DurationLong
 
 class NightCustomer extends Simulation {
+  // To run this test, please type this type of command:
+  // $ mvn gatling:test -Dgatling.simulationClass=com.restaurant.customer.NightCustomer -Dhost=34.117.101.245 -Dtime_divisor=15
+
+  val timeDivisor = Integer.getInteger("time_divisor", 60).toInt
+  val enter_host = System.getProperty("host", "restaurant-staff-enter:8080")
+  val order_host = System.getProperty("host", "restaurant-staff-order:8080")
+  val pay_host = System.getProperty("host", "restaurant-staff-pay:8080")
 
   val httpProtocol = http
-    .baseUrl("http://34.117.101.246")
     .inferHtmlResources(BlackList(""".*\.css""", """.*\.ico""", """.*\.js"""), WhiteList())
     .acceptHeader("*/*")
     .acceptEncodingHeader("gzip, deflate, br")
@@ -21,41 +27,42 @@ class NightCustomer extends Simulation {
     "Content-Type" -> "application/json"
   )
 
-  val customers = scenario("Eat to Office Restaurant")
-    .pause(5.seconds, 10.seconds)
+  val customers = scenario("Eat to Restaurant")
+    .pause(0.minutes / timeDivisor, 5.minutes / timeDivisor)
     .exec(
       http("Enter")
-        .get("/enter")
+        .get(s"http://$enter_host/enter")
         .check(status.is(200))
         .check(bodyString.is("Entered"))
     )
-    .pause(4.seconds, 6.seconds)
+    .pause(15.minutes / timeDivisor, 20.minutes / timeDivisor)
     .exec(
       http("Order")
-        .get("/order")
+        .get("http://$order_host/order")
         .check(status.is(200))
         .check(bodyString.is("Ordered"))
     )
-    .pause(45.seconds, 60.seconds)
+    .pause(45.minutes / timeDivisor, 60.minutes / timeDivisor)
     .exec(
       http("Pay")
-        .get("/pay")
+        .get("http://$pay_host/pay")
         .check(status.is(200))
         .check(bodyString.is("Payed"))
     )
 
     setUp(
       customers.inject(
-        nothingFor(3.seconds),
         // fisrt wave
-        rampUsers(50).during(3.seconds),
-        rampUsers(50).during(4.seconds),
-        rampUsers(50).during(7.seconds),
-        nothingFor(45.seconds),
+        rampUsers(50).during(3.minutes / timeDivisor),
+        rampUsers(50).during(4.minutes / timeDivisor),
+        rampUsers(50).during(7.minutes / timeDivisor),
+        nothingFor(45.minutes / timeDivisor),
         // second wave
-        rampUsers(15).during(3.seconds),
-        rampUsers(15).during(4.seconds),
-        rampUsers(15).during(7.seconds),
+        rampUsers(15).during(3.minutes / timeDivisor),
+        rampUsers(15).during(4.minutes / timeDivisor),
+        rampUsers(15).during(7.minutes / timeDivisor),
+        rampUsers(15).during(7.minutes / timeDivisor),
+        rampUsers(15).during(7.minutes / timeDivisor),
       )
     ).protocols(httpProtocol)
 }

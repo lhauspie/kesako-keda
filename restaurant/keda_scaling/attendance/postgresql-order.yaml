@@ -1,0 +1,30 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: postgresql-scaling-order
+  namespace: restaurant
+spec:
+  scaleTargetRef:
+    name: restaurant-staff-order
+  minReplicaCount:  0
+  maxReplicaCount:  30
+  pollingInterval:  3    # 00m45s in real life
+  cooldownPeriod:   60   # 15m00s in real life
+  triggers:
+    - type: postgresql
+      metadata:
+        host: postgres.restaurant.svc.cluster.local #use the cluster-wide namespace as KEDA lives in a different namespace from your postgres
+        port: "5432"
+        userName: lhauspie
+        passwordFromEnv: PG_PASSWORD # the name of the env var inside scaleTargetRef pod.
+        dbName: restaurant
+        sslmode: disable
+        # Remember the time is divided by 15 for test purpose.
+        # So 30 secondes = 7m30 and 15 secondes = 5m00
+        query: |
+          SELECT COUNT(1)::decimal
+          FROM customerarrival
+          WHERE arrivaltime >= now() - INTERVAL '30 sec'
+            AND arrivaltime <= now() - INTERVAL '15 sec'
+        targetQueryValue: "5"
+        metricName: postgresql-restaurant-staff-order #optional. Generated value would be `postgresql-restaurant`

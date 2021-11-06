@@ -1,720 +1,864 @@
 {
-  "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": "-- Grafana --",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
-  },
-  "editable": true,
-  "fiscalYearStartMonth": 0,
-  "gnetId": null,
-  "graphTooltip": 0,
-  "id": 26,
-  "iteration": 1635727364414,
-  "links": [],
-  "liveNow": false,
-  "panels": [
-    {
-      "datasource": "prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 25,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "AVG Response Time"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "MAX Response Time"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 6,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
+  "dashboard": {
+    "annotations": {
+      "list": [
         {
-          "exemplar": true,
-          "expr": "sum(rate(http_server_requests_seconds_sum{container=\"restaurant-staff-enter\", namespace=\"$namespace\", uri!~\"/q/metrics|/health|root\"}[1m])) \n/ \nsum(rate(http_server_requests_seconds_count{container=\"restaurant-staff-enter\", namespace=\"$namespace\", uri!~\"/q/metrics|/health|root\"}[1m]))\n",
-          "interval": "",
-          "legendFormat": "AVG Response Time",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "max(http_server_requests_seconds_max{container=\"restaurant-staff-enter\", namespace=\"$namespace\", uri!~\"/q/metrics|/health|root\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "MAX Response Time",
-          "refId": "B"
-        }
-      ],
-      "title": "Temps passé à l'Accueil",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 25,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "AVG Response Time"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "MAX Response Time"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 6
-      },
-      "id": 8,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(rate(http_server_requests_seconds_sum{container=\"restaurant-staff-order\", namespace=\"$namespace\", uri!~\"/q/metrics|/health|root\"}[1m])) \n/ \nsum(rate(http_server_requests_seconds_count{container=\"restaurant-staff-order\", namespace=\"$namespace\", uri!~\"/q/metrics|/health|root\"}[1m]))",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "AVG Response Time",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "max(http_server_requests_seconds_max{container=\"restaurant-staff-order\", namespace=\"$namespace\", uri!~\"/q/metrics|/health|root\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "MAX Response Time",
-          "refId": "B"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(rate(http_server_requests_seconds_sum{container=\"restaurant-staff-order\", namespace=\"$namespace\", uri=\"/q/metrics\"}[1m])) \n/ \nsum(rate(http_server_requests_seconds_count{container=\"restaurant-staff-order\", namespace=\"$namespace\", uri=\"/q/metrics\"}[1m]))",
+          "builtIn": 1,
+          "datasource": "prometheus",
+          "enable": true,
           "hide": true,
-          "interval": "",
-          "legendFormat": "AVG Response Time",
-          "refId": "C"
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
         }
-      ],
-      "title": "Temps passé à Commander",
-      "type": "timeseries"
+      ]
     },
-    {
-      "datasource": "prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "iteration": 1636055455969,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": "prometheus",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
             },
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 1,
-            "pointSize": 4,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 25,
+              "gradientMode": "opacity",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
               },
-              {
-                "color": "red",
-                "value": 5
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
               }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "MAX Response Time"
             },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "red",
-                  "mode": "fixed"
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
                 }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 12
-      },
-      "id": 4,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(rate(http_server_requests_seconds_sum{container=\"restaurant-staff-pay\", namespace=\"$namespace\", uri!~\"/q/metrics|/health|root\"}[1m])) \n/ \nsum(rate(http_server_requests_seconds_count{container=\"restaurant-staff-pay\", namespace=\"$namespace\", uri!~\"/q/metrics|/health|root\"}[1m]))\n",
-          "interval": "",
-          "legendFormat": "AVG Response Time",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "max(http_server_requests_seconds_max{container=\"restaurant-staff-pay\", namespace=\"$namespace\", uri!~\"/q/metrics|/health|root\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "MAX Response Time",
-          "refId": "B"
-        }
-      ],
-      "title": "Temps passé au Paiement",
-      "type": "timeseries"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 18
-      },
-      "hiddenSeries": false,
-      "id": 2,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null as zero",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.2.2",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(kube_pod_container_status_running{namespace=\"$namespace\"}) by (container)",
-          "interval": "",
-          "legendFormat": "{{container}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Nombre d'employés par poste",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "none",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "datasource": "prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+              ]
+            },
+            "unit": "s"
           },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "AVG Response Time"
               },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "green",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "MAX Response Time"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "red",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 6,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
           }
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 24
-      },
-      "id": 10,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\"}) by (pod)",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Utilisation CPU",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(http_server_requests_seconds_sum{container=\"restaurant-staff-enter\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"}[1m]))\n/ \nsum(rate(http_server_requests_seconds_count{container=\"restaurant-staff-enter\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"}[1m]))\n* 15\n",
+            "interval": "",
+            "legendFormat": "AVG Response Time",
+            "refId": "A"
           },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+          {
+            "exemplar": true,
+            "expr": "max(http_server_requests_seconds_max{container=\"restaurant-staff-enter\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"})\n* 15",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "MAX Response Time",
+            "refId": "B"
+          }
+        ],
+        "title": "Temps passé à l'Accueil",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "prometheus",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
             },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 25,
+              "gradientMode": "opacity",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
             },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
             },
-            "thresholdsStyle": {
-              "mode": "off"
+            "unit": "s"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "AVG Response Time"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "green",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "MAX Response Time"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "red",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 24,
+          "x": 0,
+          "y": 6
+        },
+        "id": 8,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(http_server_requests_seconds_sum{container=\"restaurant-staff-order\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"}[1m])) \n/ \nsum(rate(http_server_requests_seconds_count{container=\"restaurant-staff-order\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"}[1m]))\n* 15",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "AVG Response Time",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "max(http_server_requests_seconds_max{container=\"restaurant-staff-order\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"})\n* 15",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "MAX Response Time",
+            "refId": "B"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum(rate(http_server_requests_seconds_sum{container=\"restaurant-staff-order\", namespace=\"$namespace\", uri=\"/q/metrics\"}[1m])) \n/ \nsum(rate(http_server_requests_seconds_count{container=\"restaurant-staff-order\", namespace=\"$namespace\", uri=\"/q/metrics\"}[1m]))",
+            "hide": true,
+            "interval": "",
+            "legendFormat": "AVG Response Time",
+            "refId": "C"
+          }
+        ],
+        "title": "Temps passé à Commander",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 20,
+              "gradientMode": "opacity",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineStyle": {
+                "fill": "solid"
+              },
+              "lineWidth": 1,
+              "pointSize": 4,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 5
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "MAX Response Time"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "red",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 24,
+          "x": 0,
+          "y": 12
+        },
+        "id": 4,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(http_server_requests_seconds_sum{container=\"restaurant-staff-pay\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"}[1m])) \n/ \nsum(rate(http_server_requests_seconds_count{container=\"restaurant-staff-pay\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"}[1m]))\n* 15\n",
+            "interval": "",
+            "legendFormat": "AVG Response Time",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "max(http_server_requests_seconds_max{container=\"restaurant-staff-pay\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"})\n* 15",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "MAX Response Time",
+            "refId": "B"
+          }
+        ],
+        "title": "Temps passé au Paiement",
+        "type": "timeseries"
+      },
+      {
+        "aliasColors": {
+          "Employés": "dark-purple",
+          "restaurant-staff-order": "light-blue",
+          "restaurant-staff-pay": "super-light-yellow"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 6,
+          "w": 24,
+          "x": 0,
+          "y": 18
+        },
+        "hiddenSeries": false,
+        "id": 2,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null as zero",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.2.2",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(kube_pod_container_status_running{namespace=\"$namespace\", container=~\"restaurant.*\"}) by (container)",
+            "interval": "",
+            "legendFormat": "{{container}}",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum(kube_pod_container_status_running{namespace=\"$namespace\", container=~\"restaurant.*\"})",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Employés",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Nombre d'employés par poste",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:41",
+            "format": "none",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:42",
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": [
+            {
+              "__systemRef": "hideSeriesFrom",
+              "matcher": {
+                "id": "byNames",
+                "options": {
+                  "mode": "exclude",
+                  "names": [
+                    "avg-restaurant-staff-pay",
+                    "avg-restaurant-staff-order",
+                    "avg-restaurant-staff-enter"
+                  ],
+                  "prefix": "All except:",
+                  "readOnly": true
+                }
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom",
+                  "value": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 24,
+          "x": 0,
+          "y": 24
+        },
+        "id": 14,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(http_server_requests_seconds_sum{container=~\"restaurant-staff-.*\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"}[1m]) ) by (container)\n/ \nsum(rate(http_server_requests_seconds_count{container=~\"restaurant-staff-.*\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"}[1m])) by (container)\n* 15",
+            "interval": "",
+            "legendFormat": "avg-{{container}}",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "max(http_server_requests_seconds_max{container=~\"restaurant-staff-.*\", namespace=\"$namespace\", uri!~\"/q/metrics|/q/health|root\"}) by (container)\n* 15",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "max-{{container}}",
+            "refId": "B"
+          }
+        ],
+        "title": "Temps passé à interragir avec le Restaurant",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
             }
           },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 24,
+          "x": 0,
+          "y": 31
+        },
+        "id": 10,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
           },
-          "unit": "bytes"
+          "tooltip": {
+            "mode": "single"
+          }
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 30
-      },
-      "id": 12,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\", container!=\"\", image!=\"\"}) by (pod)",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Utilisation Mémoire",
-      "type": "timeseries"
-    }
-  ],
-  "refresh": "5s",
-  "schemaVersion": 31,
-  "style": "dark",
-  "tags": [],
-  "templating": {
-    "list": [
-      {
-        "allValue": null,
-        "current": {
-          "isNone": true,
-          "selected": false,
-          "text": "None",
-          "value": ""
-        },
-        "datasource": "prometheus",
-        "definition": "label_values(up{job=\"kube-state-metrics\"}, cluster)",
-        "description": null,
-        "error": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "cluster",
-        "options": [],
-        "query": {
-          "query": "label_values(up{job=\"kube-state-metrics\"}, cluster)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", container=~\"restaurant.*\"}) by (pod)",
+            "interval": "",
+            "legendFormat": "{{pod}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Utilisation CPU",
+        "type": "timeseries"
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "restaurant",
-          "value": "restaurant"
-        },
         "datasource": "prometheus",
-        "definition": "label_values(kube_namespace_created{cluster=\"$cluster\"}, namespace)",
-        "description": null,
-        "error": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "namespace",
-        "options": [],
-        "query": {
-          "query": "label_values(kube_namespace_created{cluster=\"$cluster\"}, namespace)",
-          "refId": "StandardVariableQuery"
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
         },
-        "refresh": 2,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
+        "gridPos": {
+          "h": 6,
+          "w": 24,
+          "x": 0,
+          "y": 37
+        },
+        "id": 12,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\", container=~\"restaurant.*\", container!=\"\", image!=\"\"}) by (pod)",
+            "interval": "",
+            "legendFormat": "{{ pod }}",
+            "refId": "A"
+          }
+        ],
+        "title": "Utilisation Mémoire",
+        "type": "timeseries"
       }
-    ]
-  },
-  "time": {
-    "from": "now-15m",
-    "to": "now"
-  },
-  "timepicker": {},
-  "timezone": "",
-  "title": "Mon Dashboard",
-  "uid": "Y0CMC4Knz",
-  "version": 2
+    ],
+    "refresh": "15s",
+    "schemaVersion": 31,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "None",
+            "value": ""
+          },
+          "datasource": "prometheus",
+          "definition": "label_values(up{job=\"kube-state-metrics\"}, cluster)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "cluster",
+          "options": [],
+          "query": {
+            "query": "label_values(up{job=\"kube-state-metrics\"}, cluster)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "restaurant",
+            "value": "restaurant"
+          },
+          "datasource": "prometheus",
+          "definition": "label_values(kube_namespace_created{cluster=\"$cluster\", namespace=~\".*restaurant.*\"}, namespace)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "namespace",
+          "options": [],
+          "query": {
+            "query": "label_values(kube_namespace_created{cluster=\"$cluster\", namespace=~\".*restaurant.*\"}, namespace)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-15m",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "15s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "Europe/Paris",
+    "title": "Mon Dashboard",
+    "uid": "Y0CMC4Knz",
+    "version": 1
+  }
 }

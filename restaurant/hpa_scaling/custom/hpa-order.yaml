@@ -1,0 +1,17 @@
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: restaurant-staff-order
+  namespace: restaurant
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: restaurant-staff-order
+  minReplicas: 1
+  maxReplicas: 30
+  metrics:
+    - type: Pods
+      pods:
+        metricName: http_server_requests_per_second
+        targetAverageValue: 1

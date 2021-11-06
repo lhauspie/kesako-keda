@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pr-postgres-pv-claim
+  namespace: perfect-restaurant
+  labels:
+    app: pr-postgres
+spec:
+  storageClassName: standard-rwo
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

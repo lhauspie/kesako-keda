@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pr-postgres-stateful-set
+  namespace: perfect-restaurant
+spec:
+  replicas: 1
+  serviceName: pr-postgres
+  selector:
+    matchLabels:
+      app: pr-postgres
+  template:
+    metadata:
+      labels:
+        app: pr-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:10.4
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: pr-postgres-config
+          volumeMounts:
+            - name: pr-postgres-data
+              mountPath: /var/lib/PostgreSQL/data
+      volumes:
+        - name: pr-postgres-data
+          persistentVolumeClaim:
+            claimName: pr-postgres-pv-claim

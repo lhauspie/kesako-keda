@@ -7,14 +7,13 @@ import io.gatling.http.{HeaderNames, HeaderValues}
 import scala.concurrent.duration.DurationLong
 
 class NoonCustomer extends Simulation {
+  // To run this test, please type this type of command:
+  // $ mvn gatling:test -Dgatling.simulationClass=com.restaurant.customer.NoonCustomer -Dhost=34.117.101.245 -Dtime_divisor=15
 
-  val timeDivisor = 15;
-//  val enter_host = "restaurant-staff-enter";
-//  val order_host = "restaurant-staff-order";
-//  val pay_host = "restaurant-staff-pay";
-  val enter_host = "34.117.101.246";
-  val order_host = "34.117.101.246";
-  val pay_host = "34.117.101.246";
+  val timeDivisor = Integer.getInteger("time_divisor", 60).toInt
+  val enter_host = System.getProperty("host", "restaurant-staff-enter:8080")
+  val order_host = System.getProperty("host", "restaurant-staff-order:8080")
+  val pay_host = System.getProperty("host", "restaurant-staff-pay:8080")
 
   val httpProtocol = http
     .inferHtmlResources(BlackList(""".*\.css""", """.*\.ico""", """.*\.js"""), WhiteList())
@@ -28,12 +27,11 @@ class NoonCustomer extends Simulation {
     "Content-Type" -> "application/json"
   )
 
-  val customers = scenario("Eat to Office Restaurant")
-    .pause(5.minutes / timeDivisor, 10.minutes / timeDivisor)
+  val customers = scenario("Eat to Restaurant")
+    .pause(0.minutes / timeDivisor, 5.minutes / timeDivisor)
     .exec(
       http("Enter")
         .get(s"http://$enter_host/enter")
-//        .requestTimeout(5.minutes / timeDivisor)
         .check(status.is(200))
         .check(bodyString.is("Entered"))
     )
@@ -41,25 +39,21 @@ class NoonCustomer extends Simulation {
     .exec(
       http("Order")
         .get(s"http://$order_host/order")
-//        .requestTimeout(10.minutes / timeDivisor)
         .check(status.is(200))
         .check(bodyString.is("Ordered"))
     )
     .pause(30.minutes / timeDivisor, 45.minutes / timeDivisor)
-    .rendezVous(200)
+    .rendezVous(200) // rendezVous is here to concentrate payment in 13h40 / 13h55
     .pause(0.minutes / timeDivisor, 15.minutes / timeDivisor)
     .exec(
       http("Pay")
         .get(s"http://$pay_host/pay")
-//        .requestTimeout(5.minutes / timeDivisor)
         .check(status.is(200))
         .check(bodyString.is("Payed"))
     )
-    .exitHereIfFailed
 
     setUp(
       customers.inject(
-        nothingFor(3.minutes / timeDivisor),
         rampUsers(50).during(3.minutes / timeDivisor),
         rampUsers(50).during(4.minutes / timeDivisor),
         rampUsers(50).during(7.minutes / timeDivisor),

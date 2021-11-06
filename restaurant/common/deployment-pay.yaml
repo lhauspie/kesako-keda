@@ -1,34 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: restaurant-staff-order
+  name: restaurant-staff-pay
   namespace: restaurant
   labels:
-    app: restaurant-staff-order
+    app: restaurant-staff-pay
     app.kubernetes.io/name: restaurant-staff
     app.kubernetes.io/version: 1.2.0
-    app.kubernetes.io/component: order
+    app.kubernetes.io/component: pay
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: restaurant-staff-order
+      app: restaurant-staff-pay
   template:
     metadata:
-      name: restaurant-staff-order
+      name: restaurant-staff-pay
       labels:
-        app: restaurant-staff-order
+        app: restaurant-staff-pay
         app.kubernetes.io/name: restaurant-staff
         app.kubernetes.io/version: 1.2.0
-        app.kubernetes.io/component: order
+        app.kubernetes.io/component: pay
     spec:
       containers:
-        - name: restaurant-staff-order
-          image: lhauspie/restaurant-staff-order:1.2.0
+        - name: restaurant-staff-pay
+          image: lhauspie/restaurant-staff-pay:1.2.0
           imagePullPolicy: Always
           env:
             - name: TIME_DIVISOR
               value: "15"
+            - name: PG_PASSWORD
+              value: lhauspie
           ports:
             - name: http
               containerPort: 8080

@@ -13,7 +13,7 @@ local kp =
         namespace: 'monitoring',
       },
       prometheus+: {
-        namespaces+: ['restaurant', 'podinfo'],
+        namespaces+: ['restaurant', 'podinfo', 'perfect-restaurant'],
       }
     },
   };

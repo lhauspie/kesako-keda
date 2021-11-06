@@ -1,12 +1,13 @@
 noon:
-	mvn gatling:test -Dgatling.simulationClass=com.restaurant.customer.NoonCustomer
+	mvn gatling:test -Dgatling.simulationClass=com.restaurant.customer.NoonCustomer \
+	 -Dhost=${RESTAURANT_IP} -Dtime_divisor=15
 
 night:
-	mvn gatling:test -Dgatling.simulationClass=com.restaurant.customer.NightCustomer
+	mvn gatling:test -Dgatling.simulationClass=com.restaurant.customer.NightCustomer \
+	 -Dhost=${RESTAURANT_IP} -Dtime_divisor=15
 
-scaleup:
-	mvn gatling:test -Dgatling.simulationClass=com.restaurant.customer.ScaleUp
+package:
+	docker build . -t lhauspie/restaurant-simulations:1.0.0
 
-fulfill:
-	rm -f ./gatling.log
-	mvn gatling:test -Dgatling.simulationClass=com.restaurant.customer.FulfillElastic
+deliver:
+	docker push lhauspie/restaurant-simulations:1.0.0

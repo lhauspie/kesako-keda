@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: restaurant-simulation
+  namespace: restaurant
+spec:
+  schedule: "*/15 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: gatling-simulation
+              image: lhauspie/restaurant-simulations:1.0.0
+              imagePullPolicy: Always
+              args:
+                - "-Dgatling.simulationClass=com.restaurant.customer.NoonCustomer"
+                - "-Dtime_divisor=15"
+          restartPolicy: OnFailure

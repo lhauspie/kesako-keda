@@ -1,0 +1,16 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: cron-scaling-pay
+  namespace: restaurant
+spec:
+  minReplicaCount: 0
+  scaleTargetRef:
+    name: restaurant-staff-pay
+  triggers:
+    - type: cron
+      metadata:
+        timezone: Europe/Paris
+        start: 24 * * * *
+        end: 34 * * * *
+        desiredReplicas: "1"

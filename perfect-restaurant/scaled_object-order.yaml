@@ -1,0 +1,43 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: restaurant-staff-order
+  namespace: perfect-restaurant
+spec:
+  scaleTargetRef:
+    name: restaurant-staff-order
+  minReplicaCount:  0
+  maxReplicaCount:  30
+  pollingInterval:  3    # 00m45s in real life
+  cooldownPeriod:   30   # 07m30s in real life
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-k8s.monitoring.svc.cluster.local:9090
+        metricName: http_server_requests_seconds_sum
+        query: sum(rate(http_server_requests_seconds_sum{namespace="perfect-restaurant", container="restaurant-staff-order", uri="/order"}[2m])) * 15
+        threshold: '120'     # Scale Up if customers wait over 2 minutes
+    - type: postgresql
+      metadata:
+        host: pr-postgres.perfect-restaurant.svc.cluster.local #use the cluster-wide namespace as KEDA lives in a different namespace from your postgres
+        port: "5432"
+        userName: lhauspie
+        passwordFromEnv: PG_PASSWORD # the name of the env var inside scaleTargetRef pod.
+        dbName: restaurant
+        sslmode: disable
+        # Remember the time is divided by 15 for test purpose.
+        # So 40 secondes = 10m00 and 20 secondes = 5m00
+        # We're looking for activity yesterday in next 5 minutes
+        query: |
+          SELECT COUNT(1)::decimal
+          FROM customerordering
+          WHERE orderingtime >= now() - INTERVAL '1h' + INTERVAL '20s'
+            AND orderingtime <= now() - INTERVAL '1h' + INTERVAL '40s'
+        targetQueryValue: "8"
+        metricName: postgresql-restaurant-staff-enter #optional. Generated value would be `postgresql-restaurant`
+    - type: cron
+      metadata:
+        timezone: Europe/Paris
+        start: 10 * * * *
+        end: 35 * * * *
+        desiredReplicas: "1"

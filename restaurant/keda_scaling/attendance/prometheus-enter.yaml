@@ -1,0 +1,19 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: prometheus-restaurant-staff-enter
+  namespace: restaurant
+spec:
+  scaleTargetRef:
+    name: restaurant-staff-enter
+  minReplicaCount:  1      # Minimum 1 pod
+  maxReplicaCount:  30     # Maximum 30 pods
+  pollingInterval:  3      # Checj threshold each 3 seconds
+  cooldownPeriod:   10     # Scale down after 10 seconds bellow the threshold
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: http://prometheus-k8s.monitoring.svc.cluster.local:9090
+        metricName: http_server_requests_seconds_sum
+        query: sum(rate(http_server_requests_seconds_sum{namespace="restaurant", container="restaurant-staff-enter", uri="/enter"}[2m])) * 15
+        threshold: '120'    # Scale Up if customers wait over 120 seconds

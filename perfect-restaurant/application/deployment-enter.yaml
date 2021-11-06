@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: restaurant-staff-enter
-  namespace: restaurant
+  namespace: perfect-restaurant
   labels:
     app: restaurant-staff-enter
     app.kubernetes.io/name: restaurant-staff
@@ -27,8 +27,12 @@ spec:
           image: lhauspie/restaurant-staff-enter:1.2.0
           imagePullPolicy: Always
           env:
+            - name: QUARKUS_DATASOURCE_JDBC_URL
+              value: jdbc:postgresql://pr-postgres:5432/restaurant
             - name: TIME_DIVISOR
               value: "15"
+            - name: PG_PASSWORD
+              value: lhauspie
           ports:
             - name: http
               containerPort: 8080

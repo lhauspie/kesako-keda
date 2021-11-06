@@ -1,17 +1,17 @@
-kind: HorizontalPodAutoscaler
 apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
 metadata:
   name: restaurant-staff-enter
-  namespace: monitoring
+  namespace: restaurant
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: restaurant-staff-enter
-  minReplicas: 0
+  minReplicas: 1
   maxReplicas: 30
   metrics:
     - type: Pods
       pods:
-        metricName: http_request_per_second
-        targetAverageValue: 5
+        metricName: http_server_requests_per_second
+        targetAverageValue: 1

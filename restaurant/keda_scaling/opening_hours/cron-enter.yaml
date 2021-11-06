@@ -1,0 +1,16 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: cron-scaling-enter
+  namespace: restaurant
+spec:
+  minReplicaCount: 0
+  scaleTargetRef:
+    name: restaurant-staff-enter
+  triggers:
+    - type: cron
+      metadata:
+        timezone: Europe/Paris
+        start: 20 * * * *
+        end: 30 * * * *
+        desiredReplicas: "1"
