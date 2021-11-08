@@ -6,7 +6,7 @@ metadata:
 spec:
   scaleTargetRef:
     name: restaurant-staff-pay
-  minReplicaCount:  0
+  minReplicaCount:  1
   maxReplicaCount:  30
   pollingInterval:  3    # 00m45s in real life
   cooldownPeriod:   40   # 10m00s in real life

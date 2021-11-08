@@ -20,7 +20,7 @@ spec:
         dbName: restaurant
         sslmode: disable
         # Remember the time is divided by 15 for test purpose.
-        # So 40 secondes = 10m00 and 20 secondes = 5m00
+        # So 40 seconds = 10m00 and 20 seconds = 5m00
         # We're looking for activity yesterday in next 5 minutes
         query: |
           SELECT COUNT(1)::decimal
