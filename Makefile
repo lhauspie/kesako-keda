@@ -194,27 +194,27 @@ demo1: demo0 # Scalabilité sur la charge de travail
 	make simulation
 
 demo2: demo0 deploy_keda # Scalabilité sur la charge de sollicitation (nb appels)
-	sleep 30
+	sleep 60
 	kubectl apply -f restaurant/hpa_scaling/custom/
 	make simulation
 
 demo3: demo0 deploy_keda # Scalabilité sur la charge de sollicitation (temps d'attente)
-	sleep 30
+	sleep 60
 	kubectl apply -f restaurant/keda_scaling/custom/
 	make simulation
 
 demo4: demo0 deploy_keda # Scalabilité sur la fréquentation
-	sleep 30
+	sleep 60
 	kubectl apply -f restaurant/keda_scaling/attendance/
 	make simulation
 
 demo5: demo0 deploy_keda # Scalabilité sur l’historique de fréquentation
-	sleep 30
+	sleep 60
 	kubectl apply -f restaurant/keda_scaling/history/
 	kubectl apply -f restaurant/cron_job-simulation.yaml
 
 demo6: demo0 deploy_keda # Scalabilité sur les horaires d’ouverture
-	sleep 30
+	sleep 60
 	kubectl apply -f restaurant/keda_scaling/opening_hours/
 
 demo7: deploy_keda deploy_perfect_restaurant # Scalabilité + Scalabilité + Scalabilité
