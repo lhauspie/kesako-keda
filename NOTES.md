@@ -11,7 +11,7 @@ WARNING: version difference between client (1.22) and server (1.20) exceeds the 
 ```
 Il est donc possible que les fichiers de description ne soient pas compatibles avec une version suppérieure.
 
-Aussi, tous ces scripts ne sont clairement pas production-ready. Donc ne pas les utiliser pour provisionner votre GKE de Prod.
+Aussi, tous ces scripts ne sont clairement pas production-ready. Donc ne pas les utilisez pour provisionner votre GKE de Prod.
 
 ## Pré-requis
 - [Installer GCloud](https://cloud.google.com/sdk/docs/install) et se connecter avec `gcloud auth login`
@@ -157,12 +157,16 @@ $ export IP=$(kubectl -n podinfo get ingress/podinfo --output jsonpath='{.status
 Vérification :
 ```
 $ curl $IP
+
 Hostname: podinfo-7d666f84d8-k8ldw
 [...]
 X-Forwarded-For: 85.168.26.74, 34.120.46.102
 X-Forwarded-Proto: http
+```
 
+```
 $ curl $IP
+
 Hostname: podinfo-7d666f84d8-7ntw7
 [...]
 X-Forwarded-For: 85.168.26.74, 34.120.46.102
@@ -171,11 +175,13 @@ X-Forwarded-Proto: http
 
 # Le restaurant
 
-Cette simulation se trouvera dans le namesapace kubernetes `restaurant`.
+Cette simulation se trouvera dans le namespace kubernetes `restaurant`.
 Il est possible de créer le namespace avec une de ces commandes au choix :
 ```
 $ kubectl apply -f restaurant/setup
+```
 ou
+```
 $ kubectl create namespace restaurant
 ```
 
@@ -204,7 +210,8 @@ Cela peut prendre plusieurs minutes pour tout installer et disposer de l'address
 ```
 $ kubectl get ingress -n restaurant --watch
 
-?????
+NAME               CLASS    HOSTS   ADDRESS         PORTS   AGE
+restaurant-staff   <none>   *       34.107.196.47   80      12m
 ```
 
 Pour vérifier que tout a fonctionné correctement, il est possible de lancer une requête sur le endpoint `/enter` :
@@ -258,7 +265,6 @@ postgres-stateful-set-0                   1/1     Running   0          10m
 ubuntu-556d66858c-rjvzb                   1/1     Running   0          9m25s
 
 $ kubectl -n restaurant exec --stdin --tty ubuntu-556d66858c-rjvzb -- /bin/bash
-
 root@ubuntu-556d66858c-rjvzb:/# apt update
 root@ubuntu-556d66858c-rjvzb:/# apt install postgresql postgresql-contrib
 root@ubuntu-556d66858c-rjvzb:/# psql restaurant -h postgres -U lhauspie --password -p 5432

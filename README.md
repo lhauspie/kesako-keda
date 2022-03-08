@@ -1,18 +1,16 @@
 # Monitoring
 
 ## Pre-requisite
+
 Install k3d to be able to run k3s cluster locally.
 
 
-
 ## Prometheus installation
-
 
 Based on [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)
 ```
 git clone git@github.com:prometheus-operator/kube-prometheus.git
 ```
-
 
 edit file `example.jsonnet`
 
@@ -39,6 +37,7 @@ kubectl create -f manifests/setup
 until kubectl get servicemonitors --all-namespaces ; do date; sleep 1; echo ""; done
 kubectl create -f manifests/
 ```
+
 
 ## Access the dashboards
 

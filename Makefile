@@ -58,7 +58,8 @@ destroy_k3s:
 
 provision_gke:
 	cd gke && terraform init && terraform apply -auto-approve
-	gcloud container clusters get-credentials lhauspie-tz-keda-gke --zone europe-west2-a
+	cd gke && gcloud config set project $$(terraform output -raw project_id)
+	cd gke && gcloud container clusters get-credentials lhauspie-tz-keda-gke --zone $$(terraform output -raw zone)
 
 destroy_gke:
 	cd gke && terraform destroy -auto-approve
