@@ -31,13 +31,13 @@ spec:
         query: |
           SELECT COUNT(1)::decimal
           FROM customerpayment
-          WHERE paymenttime >= now() - INTERVAL '1h' + INTERVAL '20s'
-            AND paymenttime <= now() - INTERVAL '1h' + INTERVAL '40s'
+          WHERE paymenttime >= now() - INTERVAL '30m' + INTERVAL '20s'
+            AND paymenttime <= now() - INTERVAL '30m' + INTERVAL '40s'
         targetQueryValue: "6"
         metricName: postgresql-restaurant-staff-enter #optional. Generated value would be `postgresql-restaurant`
     - type: cron
       metadata:
         timezone: Europe/Paris
-        start: 10 * * * *
-        end: 35 * * * *
+        start: 00,30 * * * *
+        end:   25,55 * * * *
         desiredReplicas: "1"
